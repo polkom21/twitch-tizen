@@ -3,6 +3,6 @@ const dev = () => {
 }
 
 export const config = {
-    API_URL: 'https://api.twitch.tv/helix',
+    API_URL: 'https://api.twitch.tv/kraken',
     CLIENT_ID: 'cbumtvy1yu4h1qpfx28m7ieolv42xm',
 }

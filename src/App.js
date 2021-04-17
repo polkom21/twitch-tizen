@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { myFetch } from './FetchHelper';
+import useApi from './customHooks/useApi';
 
 function App() {
   const [keyPressed, setKeyPressed] = useState(null)
   const [streams, setStreams] = useState(null)
+
+  const { isLoading, data, error, progress, apiCall } = useApi();
 
   useEffect(() => {
     window.addEventListener('keydown', e => {
       setKeyPressed(e.keyCode)
     })
 
-    myFetch('/streams?first=20', {method: 'GET'})
-    .then(res => {
-      setStreams(res.data)
-    })
+    apiCall('/streams?first=10');
   }, [])
 
   return (
@@ -24,13 +23,14 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           KeyID: {String(keyPressed)}
+          {progress}
         </p>
         <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
-          {streams === null ? <p>Loading...</p> : streams.map(stream => <div style={{width: 400}}>
-            <img src={stream.thumbnail_url.replace('{width}', 400).replace('{height}', 225)} alt=""/>
-            <p>{stream.title}</p>
-            <p>{stream.user_name}</p>
-            <p>{stream.viewer_count}</p>
+          {isLoading === true ? <p>Loading...</p> : data.streams.map(stream => <div style={{width: 400}}>
+            <img src={stream.preview.medium} alt=""/>
+            <p>{stream.channel.status}</p>
+            <p>{stream.channel.display_name}</p>
+            <p>{stream.viewers}</p>
           </div>)}
         </div>
       </header>
