@@ -21,11 +21,11 @@ export default () => {
                 'Accept': 'application/vnd.twitchtv.v5+json',
             },
             onDownloadProgress: (progressEvent) => {
-                console.log(progressEvent)
+                // console.log(progressEvent)
                 setProgress(progressEvent.loaded / (progressEvent.total || progressEvent.loaded) * 100)
             },
             onUploadProgress: (progressEvent) => {
-                console.log(progressEvent)
+                // console.log(progressEvent)
                 setProgress(progressEvent.loaded / (progressEvent.total || progressEvent.loaded) * 100);
             }
         })

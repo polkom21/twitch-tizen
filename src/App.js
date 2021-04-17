@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
-          {isLoading === true ? <p>Loading...</p> : data.streams.map(stream => <div style={{width: 400}}>
+          {isLoading === true ? <p>Loading...</p> : data.streams.map(stream => <div key={stream._id} style={{width: 400}}>
             <img src={stream.preview.medium} alt=""/>
             <p>{stream.channel.status}</p>
             <p>{stream.channel.display_name}</p>
