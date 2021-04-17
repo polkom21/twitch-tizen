@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import useApi from './customHooks/useApi';
 
 function App() {
-  const [keyPressed, setKeyPressed] = useState(null)
-  const [streams, setStreams] = useState(null)
+  const [, setKeyPressed] = useState(null)
 
-  const { isLoading, data, error, progress, apiCall } = useApi();
+  const { isLoading, data, apiCall } = useApi();
 
   useEffect(() => {
     window.addEventListener('keydown', e => {
@@ -15,16 +13,12 @@ function App() {
     })
 
     apiCall('/streams?first=10');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          KeyID: {String(keyPressed)}
-          {progress}
-        </p>
         <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
           {isLoading === true ? <p>Loading...</p> : data.streams.map(stream => <div style={{width: 400}}>
             <img src={stream.preview.medium} alt=""/>
